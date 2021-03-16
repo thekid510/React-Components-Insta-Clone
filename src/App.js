@@ -5,7 +5,8 @@
 */
 
 // Import the state hook
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import Posts from '../src/components/Posts/Posts'
 import SearchBar from "../src/components/SearchBar/SearchBar"
 import './dummy-data'
@@ -13,14 +14,17 @@ import './dummy-data'
 // Import the dummyData
 import './App.css';
 import dummyData from './dummy-data';
-import Post from './components/Posts/Post';
+
 
 const App = () => {
   // Create a state called `posts` to hold the array of post objects, **initializing to dummyData**.
-  const {posts, setPosts} = useState(dummyData)
+  const [posts, setPosts] = useState(dummyData) 
+  // console.log(useState(dummyData),posts,setPosts);
   // This state is the source of truth for the data inside the app. You won't be needing dummyData anymore.
   // To make the search bar work (which is stretch) we'd need another state to hold the search term.
-
+useEffect(( )=> {
+console.log(posts)
+},[posts])
   const likePost = postId => {
     /*
       This function serves the purpose of increasing the number of likes by one, of the post with a given id.
@@ -35,7 +39,7 @@ const App = () => {
      */
     setPosts(posts.map(post =>{
       if(post.id === postId) {
-        return {...post} 
+        return {...post,like: post.likes +1} 
       } else  {
         return post
       }
